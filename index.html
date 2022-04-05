@@ -5,14 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vue 3</title>
+    <link rel="stylesheet" href="foundation.min.css"  />
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div id="app">
         <h1>{{message}}</h1>
+        <div class="grid-container">
+            <div class="grid-x grid-padding-x">
+              <div class="medium-6 cell">
+                  <input type="text" name="title" id="title" placeholder="pls type">
+              </div>
+              <div class="medium-6 cell">
+                  <button class="submit success button">add</button>
+              </div>
+            </div>
+            <div class="grid-x grid-padding-x">
+                <ul class="list-group ">
+                    <li :class="['list-group-item',{done:!job.completed}]" v-for="(job,i) in doList">
+                        {{job.title}}
+                    </li>
+                    
+                  </ul>
+            </div>
+          </div>
+          
+        
     </div>
 
+    
     <script src="vue.global.js"></script>
     <script src="main.js"></script>
 </body>
