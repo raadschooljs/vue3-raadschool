@@ -1,1 +1,7 @@
-console.log('main js');
+Vue.createApp({
+    data() {
+      return {
+        message: 'Hello Vue!'
+      }
+    }
+  }).mount('#app')
