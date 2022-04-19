@@ -11,14 +11,24 @@
         <h1>{{title}}</h1>
         <input type="text" v-model="title">
         <br>
-        
+        <h2>{{count}}</h2>
+        <button @click="plus">plus</button> <button @click="minus">minus</button>
     </div>
     <script src="vue.global.js"></script>
     <script>
         Vue.createApp({
             data(){
                 return {
-                    title:'Hello From Vue'
+                    title:'Hello From Vue',
+                    count:0,
+                }
+            },
+            methods:{
+                plus(){
+                    this.count++
+                },
+                minus(){
+                    this.count--
                 }
             }
         }).mount('#app')
