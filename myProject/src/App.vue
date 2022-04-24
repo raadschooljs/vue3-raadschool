@@ -1,19 +1,17 @@
 <template>
   <div>
     <h1>Hello Vue</h1>
+    <todolist></todolist>
     <card />
     <card />
-    <card />
-    <card />
-    <card />
-    
   </div>
 </template>
 
 <script>
 import card from './components/card.vue'
+import todolist from './components/todolist.vue'
 export default {
-  components:{card}
+  components:{card,todolist}
 }
 </script>
 
