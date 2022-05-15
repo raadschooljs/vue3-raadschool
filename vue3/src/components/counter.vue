@@ -1,12 +1,12 @@
 <template>
   <div class="counter">
-
       owner is {{owner.person.name}} have {{owner.person.value}} value
       <div class="counterWrp">
-          <button @click="plus()">plus</button>
+          <button class="btn" @click="plus()">plus</button>
           <span>{{counter}}</span>
-          <button @click="minus()">minus</button>
+          <button class="btn" @click="minus()">minus</button>
       </div>
+      {{doubleCounter}}
   </div>
 </template>
 
@@ -15,6 +15,11 @@ export default {
     data(){
         return{
             counter:0,
+        }
+    },
+    computed:{
+        doubleCounter(){
+            return this.counter * 2
         }
     },
     methods:{
