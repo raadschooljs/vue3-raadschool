@@ -8,11 +8,12 @@
     <div class="cWrp">
       <counter v-for="(person,i) in persons" :key="i" :owner="{i,person}" @update="updateValue"/>    
     </div>
-
   </div>
 </template>
 <script>
 import counter from '../components/counter.vue';
+import {useMainStore} from '../stores/mainStore';
+const store= useMainStore()
 export default {
   name: 'About',
   components:{counter},
@@ -72,6 +73,7 @@ export default {
     },
     toggleModal(){
       console.log('toggleModal');
+      store.toggleShowModal()
     }
   },
 }

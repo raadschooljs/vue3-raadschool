@@ -5,7 +5,13 @@ import { reactive } from '@vue/reactivity'
 import {useMainStore} from './stores/mainStore'
 const store = useMainStore()
 const data = reactive({
-  openModal:false
+  openModal:false,
+  links:[
+    {name:'Home',link:'/'},
+    {name:'About',link:'/about'},
+    {name:'Contact',link:'/contact'},
+    {name:'Test',link:'/test'},
+  ]
 })
 </script>
 
@@ -17,9 +23,7 @@ const data = reactive({
       <HelloWorld msg="You did it!" />
 
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-        <RouterLink to="/contact">Contact</RouterLink>
+        <RouterLink v-for="(link,i) in data.links" :key="i" :to="link.link">{{link.name}}</RouterLink>
       </nav>
     </div>
   </header>
@@ -48,7 +52,7 @@ const data = reactive({
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-
+  border:solid 1px;
   font-weight: normal;
 }
 

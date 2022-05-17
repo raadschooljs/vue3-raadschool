@@ -1,6 +1,6 @@
 <template>
   <div class="counter">
-      owner is {{owner.person.name}} have {{owner.person.value}} value
+      <span class="text-2xl">owner is {{owner.person.name}} have <span class="text-red-400">{{owner.person.value}}</span> value</span>
       <div class="counterWrp">
           <button class="btn" @click="plus()">plus</button>
           <span>{{counter}}</span>
