@@ -11,6 +11,7 @@
     "axios": "^0.27.2",
     "daisyui": "^2.15.0",
     "pinia": "^2.0.13",
+    "theme-change": "^2.0.2",
     "vue": "^3.2.33",
     "vue-axios": "^3.4.1",
     "vue-router": "^4.0.14"

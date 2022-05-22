@@ -6,6 +6,7 @@ import { reactive } from '@vue/reactivity'
 import Navbar from "@/components/Navbar.vue"
 import { useMainStore } from "./stores/main"
 import { HomeIcon, AnnotationIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon, PhotographIcon, PhoneIcon } from "@heroicons/vue/solid"
+import { themeChange } from "theme-change"
 const mainStore = useMainStore()
 const data = reactive({
   sidebar: false
@@ -20,17 +21,16 @@ function toggleSidebar() {
 </script>
 
 <template>
-  <div class="drawer">
+	<div class="drawer">
 		<input id="toggleSidebar" type="checkbox" class="drawer-toggle" v-model="data.sidebar" />
 		<div :class="['drawer-content', mainStore.sidebarExpanded ? 'mr-36' : 'mr-16']">
 			<!-- Page content here -->
-			<header>
-				<Navbar>
-					<template #toggle>
-						<label for="toggleSidebar" class="btn"></label>
-					</template>
-				</Navbar>
-			</header>
+			<Navbar>
+				<template #toggle>
+					<label for="toggleSidebar" class="btn"></label>
+				</template>
+			</Navbar>
+		
 			<main class="container mx-auto p-4">
 				<RouterView />
 			</main>
