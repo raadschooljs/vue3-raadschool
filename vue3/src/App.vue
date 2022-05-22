@@ -1,144 +1,67 @@
 <script setup>
+import {onMounted} from 'vue';
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from '@/components/HelloWorld.vue'
 import { reactive } from '@vue/reactivity'
-import {useMainStore} from './stores/mainStore'
-const store = useMainStore()
+import Navbar from "@/components/Navbar.vue"
+import { useMainStore } from "./stores/main"
+import { HomeIcon, AnnotationIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon, PhotographIcon, PhoneIcon } from "@heroicons/vue/solid"
+const mainStore = useMainStore()
 const data = reactive({
-  openModal:false,
-  links:[
-    {name:'Home',link:'/'},
-    {name:'About',link:'/about'},
-    {name:'Contact',link:'/contact'},
-    {name:'Test',link:'/test'},
-  ]
+  sidebar: false
 })
+onMounted(() => {
+  themeChange(false)
+})
+function toggleSidebar() {
+  console.log("toggleSidebar")
+  console.log(mainStore.sidebarExpanded)
+}
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink v-for="(link,i) in data.links" :key="i" :to="link.link">{{link.name}}</RouterLink>
-      </nav>
-    </div>
-  </header>
-  <!-- The button to open modal -->
-  <!-- <label for="my-modal" class="btn modal-button">open modal</label> -->
-  <!-- Put this part before </body> tag -->
-  <input type="checkbox" id="my-modal" class="modal-toggle" v-model="store.showModal"/>
-  <div class="modal">
-    <div class="modal-box">
-      <h3 class="font-bold text-lg">Congratulations random Interner user!</h3>
-      <p class="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
-      <div class="modal-action">
-        <label for="my-modal" class="btn">Yay!</label>
-      </div>
-    </div>
-  </div>
-
-
-  <RouterView />
+  <div class="drawer">
+		<input id="toggleSidebar" type="checkbox" class="drawer-toggle" v-model="data.sidebar" />
+		<div :class="['drawer-content', mainStore.sidebarExpanded ? 'mr-36' : 'mr-16']">
+			<!-- Page content here -->
+			<header>
+				<Navbar>
+					<template #toggle>
+						<label for="toggleSidebar" class="btn"></label>
+					</template>
+				</Navbar>
+			</header>
+			<main class="container mx-auto p-4">
+				<RouterView />
+			</main>
+			<footer></footer>
+		</div>
+		<div :class="['drawer-side transition-all relative', mainStore.sidebarExpanded ? 'w-36' : 'w-16']">
+			<ul class="menu p-4 overflow-y-auto w-full bg-base-100 text-base-content bg-slate-700 text-slate-300 overflow-x-hidden">
+				<!-- Sidebar content here -->
+				<li>
+					<RouterLink class="px-0 flex justify-center" to="" @click="mainStore.toggleSidebarExpanded()">
+						<ChevronDoubleRightIcon v-if="mainStore.sidebarExpanded" class="w-5 h-5" />
+						<ChevronDoubleLeftIcon v-else class="w-5 h-5" />
+					</RouterLink>
+				</li>
+				<li>
+					<RouterLink class="px-0 flex justify-center" to="/"><HomeIcon class="h-5 w-5" /><span v-if="mainStore.sidebarExpanded">Home</span></RouterLink>
+				</li>
+				<li>
+					<RouterLink class="px-0 flex justify-center" to="/about"><AnnotationIcon class="h-5 w-5" /><span v-if="mainStore.sidebarExpanded">About</span></RouterLink>
+				</li>
+				<li>
+					<RouterLink class="px-0 flex justify-center" to="/contact"><PhoneIcon class="h-5 w-5" /><span v-if="mainStore.sidebarExpanded">Contact</span></RouterLink>
+				</li>
+				<li>
+					<RouterLink class="px-0 flex justify-center" to="/photos"><PhotographIcon class="h-5 w-5" /><span v-if="mainStore.sidebarExpanded">Photos</span></RouterLink>
+				</li>
+			</ul>
+		</div>
+	</div>
 </template>
 
 <style>
-@import '@/assets/base.css';
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  border:solid 1px;
-  font-weight: normal;
-}
-
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
 </style>
