@@ -1,56 +1,55 @@
 <template>
-  <div class="counter">
-      <span class="text-2xl">owner is {{owner.person.name}} have <span class="text-red-400">{{owner.person.value}}</span> value</span>
-      <div class="counterWrp">
-          <button class="btn" @click="plus()">plus</button>
-          <span>{{counter}}</span>
-          <button class="btn" @click="minus()">minus</button>
-      </div>
-      {{doubleCounter}}
-  </div>
+    <div>
+      <button class="btn mx-3" @click="plus">+</button>{{ modelValue }}<button class="btn mx-3" @click="minus">-</button>
+    </div>
+	<br />
+	<button class="btn btn-sm btn-secondary" @click="changeCity">change city</button>
+    <br>
+    amount is :  {{amount}}
+    <br>
+    my name is {{data.name}} and I'm {{data.age}} years old
+    <br>
+    {{data.doubleAge}}
+  
 </template>
 
-<script>
-export default {
-    data(){
-        return{
-            counter:0,
-        }
+<script lang="ts">
+import {defineComponent,ref,reactive,computed,watch} from 'vue';
+
+export default defineComponent({
+    props: {
+        modelValue: { type: Number, default: 0 },
+        modelCity: { type: String, default: "Qom" }
     },
-    computed:{
-        doubleCounter(){
-            return this.counter * 2
+    emits: ["update:modelValue", "update:modelCity"],
+    setup(props,{emit})  {
+        const plus= ()=>emit("update:modelValue", props.modelValue + 1)
+        const minus = () => {
+            if (props.modelValue > 0) {
+                emit("update:modelValue", props.modelValue - 1)
+                }
         }
-    },
-    methods:{
-        plus(){
-            this.counter++
-            this.$emit('update',{i:this.owner.i,value:this.counter})
-        },
-        minus(){
-            this.counter--
-            this.$emit('update',{i:this.owner.i,value:this.counter})
-        },
-    },
-    props:{
-        owner:{
-            type:Object
-        }
+        const amount = ref(0)
+        const data = reactive({
+            name:"ali",
+            age:18,
+            cars:['benz',],
+            doubleAge:computed(()=>data.age*2)
+        })
+        // const doubleAge = computed(()=>data.age*2)
+        const changeCity = () => {
+				emit("update:modelCity", "Tehran")
+			}
+       
+        watch(
+            ()=>data.age,
+            (val,oldVal)=>{console.log(val,oldVal);}
+            )
+        return { plus, minus, changeCity,amount,data }
     }
-}
+})
 </script>
 
 <style>
-.counter {
-    margin: 10px;
-    padding: 10px;
-    background-color: lightgreen;
-    color: aliceblue;
-}
-span {
-    margin:10px 20px
-}
-.counterWrp {
-    display: flex;
-}
+
 </style>

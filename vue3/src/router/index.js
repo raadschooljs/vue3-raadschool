@@ -27,6 +27,11 @@ const router = createRouter({
       name: 'test',
       component: () => import('../views/Test.vue')
     },
+    {
+      path: '/mouse-view',
+      name: 'mouse view',
+      component: () => import('../views/MouseView.vue')
+    },
   ]
 })
 

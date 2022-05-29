@@ -1,8 +1,9 @@
 
 <template>
   <div class="about">
+
     <!-- The button to open modal -->
-    <button  class="btn modal-button" @click="toggleModal()">open modal</button>
+    <!-- <button  class="btn modal-button" @click="toggleModal()">open modal</button> -->
     <h1>This is an about page</h1>
     <h2 v-for="(person,i) in persons" :key="i">{{person.name}} is {{person.value}}</h2>
     <div class="cWrp">
@@ -12,8 +13,8 @@
 </template>
 <script>
 import counter from '../components/counter.vue';
-import {useMainStore} from '../stores/mainStore';
-const store= useMainStore()
+// import {useMainStore} from '../stores/mainStore';
+// const store= useMainStore()
 export default {
   name: 'About',
   components:{counter},
