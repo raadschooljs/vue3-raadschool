@@ -1,4 +1,5 @@
 <script setup>
+import {useMouse} from '@vueuse/core'
 import {onMounted} from 'vue';
 import { RouterLink, RouterView } from 'vue-router'
 import Sidebar from '@/components/Sidebar.vue';
@@ -7,10 +8,15 @@ import Navbar from "@/components/Navbar.vue"
 import { useMainStore } from "./stores/main"
 
 import { themeChange } from "theme-change"
+import { useDark, useToggle } from '@vueuse/core'
+
+const isDark = useDark()
+const toggleDark = useToggle(isDark)
 const mainStore = useMainStore()
 const data = reactive({
   sidebar: false
 })
+const {x,y} = useMouse()
 onMounted(() => {
   themeChange(false)
 })
@@ -32,6 +38,9 @@ function toggleSidebar() {
 			</Navbar>
 		
 			<main class="container mx-auto p-4">
+				<button class="btn" @click="toggleDark()">dark</button>
+				<br>
+				x is {{x}} and y is {{y}}
 				<RouterView />
 			</main>
 			<footer></footer>

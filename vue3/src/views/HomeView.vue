@@ -1,6 +1,6 @@
 <script>
   import { useMouse } from '../composable/useMouse';
-
+  import gsap from "gsap";
   
   // import Counter from '../components/CounterComponent.vue';
   import Counter from '../components/counter.vue';
@@ -19,6 +19,9 @@
       //   this.counterData = value
       // }
     },
+    mounted(){
+      gsap.from(this.$refs.title,{x:-300,y:200,opacity:0,duration:2,fontSize:'3rem'})
+    },
     setup(){
       const {x,y} = useMouse()
       return {x,y}
@@ -28,7 +31,7 @@
 
 <template>
   <main>
-    <h1>home page</h1>
+    <h1 class="text-xl font-bold" ref="title">Home Page</h1>
     <br>
     {{x}} {{y}}
     <br>

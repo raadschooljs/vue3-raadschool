@@ -8,8 +8,10 @@
   },
   "dependencies": {
     "@heroicons/vue": "^1.0.6",
+    "@vueuse/core": "^8.5.0",
     "axios": "^0.27.2",
     "daisyui": "^2.15.0",
+    "gsap": "^3.10.4",
     "pinia": "^2.0.13",
     "theme-change": "^2.0.2",
     "vue": "^3.2.33",
